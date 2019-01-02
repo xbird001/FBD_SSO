@@ -1,6 +1,5 @@
 package com.dse.config;
 
-import com.dse.handler.DseAccessDeniedHandler;
 import com.dse.handler.DseAuthenticationEntryPoint;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
@@ -11,10 +10,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class DseOAuth2ResourceServerConfig extends ResourceServerConfigurerAdapter {
 
-    @Bean
-    public DseAccessDeniedHandler dseAccessDeniedHandler() {
-        return new DseAccessDeniedHandler();
-    }
 
     @Bean
     public DseAuthenticationEntryPoint dseAuthenticationEntryPoint() {
@@ -33,6 +28,6 @@ public class DseOAuth2ResourceServerConfig extends ResourceServerConfigurerAdapt
 
     @Override
     public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
-        resources.authenticationEntryPoint(dseAuthenticationEntryPoint()).accessDeniedHandler(dseAccessDeniedHandler());
+        resources.authenticationEntryPoint(dseAuthenticationEntryPoint());
     }
 }
