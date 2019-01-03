@@ -9,5 +9,5 @@ public enum TokenStoreType {
 
     LOCAL_MEMORY,
 
-    REDIS;
+    REDIS
 }

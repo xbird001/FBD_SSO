@@ -73,4 +73,8 @@
             <version>2.7.0</version>
         </dependency>
     </dependencies>
+
+    <build>
+        <finalName>AS-${xbird.security.version}</finalName>
+    </build>
 </project>

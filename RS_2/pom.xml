@@ -73,4 +73,8 @@
             <version>2.7.0</version>
         </dependency>
     </dependencies>
+
+    <build>
+        <finalName>RS2-${xbird.security.version}</finalName>
+    </build>
 </project>
