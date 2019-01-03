@@ -62,6 +62,7 @@ public class DseAuthorizationServerConfig extends AuthorizationServerConfigurerA
         endpoints.authenticationManager(authenticationManager);
         //不设置这个，将无法实现tokend的刷新
         endpoints.userDetailsService(dseUserDetailsService);
+        //根据用户配置，判断启用那种方式保存token
         if(TokenStoreType.REDIS.equals(resourceServerProperties.getTokenStoreType())) {
             endpoints.tokenStore(tokenStore());
         }
