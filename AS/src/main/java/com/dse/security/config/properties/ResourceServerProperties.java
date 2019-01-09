@@ -8,9 +8,9 @@ public class ResourceServerProperties {
     /**
      * token保存策略
      */
-    private TokenStoreType tokenStoreType = TokenStoreType.LOCAL_MEMORY;
+     private TokenStoreType tokenStoreType = TokenStoreType.LOCAL_MEMORY;
 
-    /**
+     /**
      * 用户登录信息保存策略
      */
     private UserRegistryType userRegistryType = UserRegistryType.LOCAL_MEMORY;

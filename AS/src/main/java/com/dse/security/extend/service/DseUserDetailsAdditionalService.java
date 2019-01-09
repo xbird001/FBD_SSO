@@ -1,4 +1,4 @@
-package com.dse.security.config;
+package com.dse.security.extend.service;
 
 import java.util.Map;
 
@@ -6,7 +6,7 @@ public interface DseUserDetailsAdditionalService {
 
     /**
      * 获取登录用户的扩展信息
-     *  用户可通过扩展该接口，将
+     *  用户可通过扩展该接口
      * @param username
      * @return
      */

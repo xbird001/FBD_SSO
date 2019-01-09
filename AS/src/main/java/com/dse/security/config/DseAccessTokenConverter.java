@@ -16,7 +16,6 @@ public class DseAccessTokenConverter extends DefaultAccessTokenConverter {
         if (DseUserDetails.class.isAssignableFrom(clazz)) {
             DseUserDetails dseUserDetails = (DseUserDetails) authentication.getPrincipal();
             rs.put("additional", dseUserDetails.getAdditional());
-
         }
         return rs;
     }

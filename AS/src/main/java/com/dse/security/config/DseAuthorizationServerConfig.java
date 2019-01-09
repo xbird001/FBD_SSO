@@ -35,28 +35,28 @@ public class DseAuthorizationServerConfig extends AuthorizationServerConfigurerA
     private ResourceServerProperties resourceServerProperties;
 
     @Autowired
-    private DseUserDetailsService dseUserDetailsService;
+    private UserDetailsService dseUserDetailsService;
 
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
         clients.inMemory()
-                    .withClient("dse1")
-                    .secret("dse123456")
-                    .authorizedGrantTypes("authorization_code","client_credentials","implicit","refresh_token", "password")
-                    .scopes("app")
-                    //设置token的过期时间，该设置的时间，对通过redis进行缓存同样适用
-                    .accessTokenValiditySeconds(3600)
-                    //设置refresh token的过期时间
-                    .refreshTokenValiditySeconds(7200)
+                .withClient("dse1")
+                .secret("dse123456")
+                .authorizedGrantTypes("authorization_code", "client_credentials", "implicit", "refresh_token", "password")
+                .scopes("app")
+                //设置token的过期时间，该设置的时间，对通过redis进行缓存同样适用
+                .accessTokenValiditySeconds(3600)
+                //设置refresh token的过期时间
+                .refreshTokenValiditySeconds(7200)
                 .and()
-                    .withClient("dse2")
-                    .secret("dse223456")
-                    .authorizedGrantTypes("authorization_code","client_credentials","implicit","refresh_token", "password")
-                    .scopes("app")
-                    //设置token的过期时间
-                    .accessTokenValiditySeconds(3600)
-                    //设置refresh token的过期时间
-                    .refreshTokenValiditySeconds(7200);
+                .withClient("dse2")
+                .secret("dse223456")
+                .authorizedGrantTypes("authorization_code", "client_credentials", "implicit", "refresh_token", "password")
+                .scopes("app")
+                //设置token的过期时间
+                .accessTokenValiditySeconds(3600)
+                //设置refresh token的过期时间
+                .refreshTokenValiditySeconds(7200);
     }
 
 
@@ -67,9 +67,9 @@ public class DseAuthorizationServerConfig extends AuthorizationServerConfigurerA
         //不设置这个，将无法实现tokend的刷新
         endpoints.userDetailsService(dseUserDetailsService);
         //对返回的登录信息进行处理
-        endpoints.accessTokenConverter((AccessTokenConverter)ObjectUtils.defaultIfNull(dseAccessTokenConverter(),new DefaultAccessTokenConverter()));
+        endpoints.accessTokenConverter((AccessTokenConverter) ObjectUtils.defaultIfNull(dseAccessTokenConverter(), new DefaultAccessTokenConverter()));
         //根据用户配置，判断启用那种方式保存token
-        if(TokenStoreType.REDIS.equals(resourceServerProperties.getTokenStoreType())) {
+        if (TokenStoreType.REDIS.equals(resourceServerProperties.getTokenStoreType())) {
             endpoints.tokenStore(tokenStore());
         }
     }
@@ -84,13 +84,13 @@ public class DseAuthorizationServerConfig extends AuthorizationServerConfigurerA
     }
 
     @Bean
-    @ConditionalOnProperty(prefix = "com.dse.rs",name = "tokenStoreType",havingValue = "REDIS" )
+    @ConditionalOnProperty(prefix = "com.dse.rs", name = "tokenStoreType", havingValue = "REDIS")
     public TokenStore tokenStore() {
         return new RedisTokenStore(redisConnectionFactory);
     }
 
     @Bean
-    @ConditionalOnMissingBean(name="dseAccessTokenConverter")
+    @ConditionalOnMissingBean(name = "dseAccessTokenConverter")
     public DseAccessTokenConverter dseAccessTokenConverter() {
         return new DseAccessTokenConverter();
     }
