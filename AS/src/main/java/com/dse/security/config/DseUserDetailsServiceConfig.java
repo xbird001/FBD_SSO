@@ -1,9 +1,10 @@
 package com.dse.security.config;
 
 import com.dse.security.config.properties.ResourceServerProperties;
-import com.dse.security.extend.service.DseUserDetailsAdditionalService;
-import com.dse.security.extend.service.DseUserDetailsService;
-import com.dse.security.extend.service.LoadUserByUserNameService;
+import com.dse.security.extend.service.user.DseUserDetailsAdditionalService;
+import com.dse.security.extend.service.user.DseUserDetailsService;
+import com.dse.security.extend.service.user.DseUserStore;
+import com.dse.security.extend.service.user.LoadUserByUserNameService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;

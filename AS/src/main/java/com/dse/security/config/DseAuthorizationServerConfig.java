@@ -2,12 +2,13 @@ package com.dse.security.config;
 
 import com.dse.security.config.properties.ResourceServerProperties;
 import com.dse.security.config.properties.TokenStoreType;
+import net.bytebuddy.asm.Advice;
 import org.apache.commons.lang.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Conditional;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -16,10 +17,13 @@ import org.springframework.security.oauth2.config.annotation.configurers.ClientD
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
+import org.springframework.security.oauth2.provider.ClientDetailsService;
 import org.springframework.security.oauth2.provider.token.AccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.DefaultAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
+
+import java.util.Map;
 
 
 @Configuration
@@ -37,26 +41,13 @@ public class DseAuthorizationServerConfig extends AuthorizationServerConfigurerA
     @Autowired
     private UserDetailsService dseUserDetailsService;
 
+    @Autowired
+    private ClientDetailsService dseClientDetailsService;
+
+
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-        clients.inMemory()
-                .withClient("dse1")
-                .secret("dse123456")
-                .authorizedGrantTypes("authorization_code", "client_credentials", "implicit", "refresh_token", "password")
-                .scopes("app")
-                //设置token的过期时间，该设置的时间，对通过redis进行缓存同样适用
-                .accessTokenValiditySeconds(3600)
-                //设置refresh token的过期时间
-                .refreshTokenValiditySeconds(7200)
-                .and()
-                .withClient("dse2")
-                .secret("dse223456")
-                .authorizedGrantTypes("authorization_code", "client_credentials", "implicit", "refresh_token", "password")
-                .scopes("app")
-                //设置token的过期时间
-                .accessTokenValiditySeconds(3600)
-                //设置refresh token的过期时间
-                .refreshTokenValiditySeconds(7200);
+        clients.withClientDetails(dseClientDetailsService);
     }
 
 

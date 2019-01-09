@@ -1,5 +1,6 @@
-package com.dse.security.config;
+package com.dse.security.extend.service.user;
 
+import com.dse.security.config.DseUserDetails;
 import com.dse.security.config.properties.ResourceServerProperties;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;

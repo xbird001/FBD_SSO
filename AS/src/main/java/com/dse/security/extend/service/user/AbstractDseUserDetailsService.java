@@ -1,4 +1,4 @@
-package com.dse.security.extend.service;
+package com.dse.security.extend.service.user;
 
 import com.dse.security.config.DseUserDetails;
 import org.springframework.security.core.userdetails.UserDetails;
