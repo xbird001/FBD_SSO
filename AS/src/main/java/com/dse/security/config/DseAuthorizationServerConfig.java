@@ -2,7 +2,9 @@ package com.dse.security.config;
 
 import com.dse.security.config.properties.ResourceServerProperties;
 import com.dse.security.config.properties.TokenStoreType;
+import org.apache.commons.lang.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Conditional;
@@ -14,6 +16,8 @@ import org.springframework.security.oauth2.config.annotation.configurers.ClientD
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
+import org.springframework.security.oauth2.provider.token.AccessTokenConverter;
+import org.springframework.security.oauth2.provider.token.DefaultAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
 
@@ -62,6 +66,8 @@ public class DseAuthorizationServerConfig extends AuthorizationServerConfigurerA
         endpoints.authenticationManager(authenticationManager);
         //不设置这个，将无法实现tokend的刷新
         endpoints.userDetailsService(dseUserDetailsService);
+        //对返回的登录信息进行处理
+        endpoints.accessTokenConverter((AccessTokenConverter)ObjectUtils.defaultIfNull(dseAccessTokenConverter(),new DefaultAccessTokenConverter()));
         //根据用户配置，判断启用那种方式保存token
         if(TokenStoreType.REDIS.equals(resourceServerProperties.getTokenStoreType())) {
             endpoints.tokenStore(tokenStore());
@@ -78,8 +84,15 @@ public class DseAuthorizationServerConfig extends AuthorizationServerConfigurerA
     }
 
     @Bean
+    @ConditionalOnProperty(prefix = "com.dse.rs",name = "tokenStoreType",havingValue = "REDIS" )
     public TokenStore tokenStore() {
         return new RedisTokenStore(redisConnectionFactory);
+    }
+
+    @Bean
+    @ConditionalOnMissingBean(name="dseAccessTokenConverter")
+    public DseAccessTokenConverter dseAccessTokenConverter() {
+        return new DseAccessTokenConverter();
     }
 
 
