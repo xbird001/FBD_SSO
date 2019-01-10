@@ -1,7 +1,6 @@
-package com.dse.security.config;
+package com.dse.security.extend.service.user;
 
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.User;
 import java.util.Collection;
 import java.util.Map;

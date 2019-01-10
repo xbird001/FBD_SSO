@@ -32,7 +32,7 @@ public class DseAuthorizationServerConfig extends AuthorizationServerConfigurerA
     @Autowired
     private AuthenticationManager authenticationManager;
 
-    @Autowired
+    @Autowired(required = false)
     private RedisConnectionFactory redisConnectionFactory;
 
     @Autowired

@@ -1,10 +1,7 @@
 package com.dse.security.extend.service.user;
 
-import com.dse.security.config.DseUserDetails;
 import com.dse.security.config.properties.UserRegistryType;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.authority.AuthorityUtils;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 /**
@@ -14,12 +11,12 @@ import org.springframework.stereotype.Component;
 public class DBLoadUserNameService implements LoadUserByUserNameService {
 
     @Autowired
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
+    private DseUserDetailsDao dseUserDetailsDao;
+
 
     @Override
     public DseUserDetails doLoadUserByUsername(String username) {
-        //暂时测试用
-        return new DseUserDetails(username,bCryptPasswordEncoder.encode("123456"),true,true,true,true, AuthorityUtils.commaSeparatedStringToAuthorityList("admin,common,ROLE_USER"));
+        return dseUserDetailsDao.loadUserByUsername(username);
     }
 
     @Override

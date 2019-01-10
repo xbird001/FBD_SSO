@@ -16,7 +16,7 @@
     <name>security</name>
 
     <properties>
-        <xbird.security.version>1.0.0-SNAPSHOT</xbird.security.version>
+        <xbird.security.version>1.0-SNAPSHOT</xbird.security.version>
     </properties>
 
     <dependencyManagement>

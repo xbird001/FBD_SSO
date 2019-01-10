@@ -1,6 +1,5 @@
 package com.dse.security.extend.service.user;
 
-import com.dse.security.config.DseUserDetails;
 import com.dse.security.config.properties.UserRegistryType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

@@ -1,6 +1,5 @@
 package com.dse.security.extend.service.user;
 
-import com.dse.security.config.DseUserDetails;
 import com.dse.security.config.properties.ResourceServerProperties;
 
 import java.util.List;

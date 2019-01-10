@@ -1,6 +1,5 @@
 package com.dse.security.extend.service.user;
 
-import com.dse.security.config.DseUserDetails;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

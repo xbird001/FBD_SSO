@@ -13,6 +13,10 @@
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="AS" target="1.8" />
+      <module name="AS-CORE" target="1.8" />
+      <module name="ascore" target="1.8" />
+      <module name="ASCORE" target="1.8" />
+      <module name="ASDEMO" target="1.8" />
       <module name="RS_1" target="1.8" />
       <module name="RS_2" target="1.8" />
       <module name="security" target="1.8" />
