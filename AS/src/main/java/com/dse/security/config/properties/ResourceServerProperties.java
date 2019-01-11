@@ -13,7 +13,7 @@ public class ResourceServerProperties {
      /**
      * 用户登录信息保存策略
      */
-    private UserRegistryType userRegistryType = UserRegistryType.LOCAL_MEMORY;
+    private UserRegistryType userRegistryType = new UserRegistryType();
 
     /**
      * 第三方APP客户端账号信息
