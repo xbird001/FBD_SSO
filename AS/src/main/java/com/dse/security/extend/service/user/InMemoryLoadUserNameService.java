@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
  * 本地内存方式保存用户登录信息
  */
 @Component
-public class InMemoryLoadUserNameService implements LoadUserByUserNameService {
+public class InMemoryLoadUserNameService extends AbstractLoadUserByUserNameService {
 
     @Autowired
     private DseUserStore dseUserStore;
@@ -17,13 +17,13 @@ public class InMemoryLoadUserNameService implements LoadUserByUserNameService {
     @Autowired
     private ResourceServerProperties resourceServerProperties;
 
+    public InMemoryLoadUserNameService() {
+        super("LOCAL_MEMORY");
+    }
+
     @Override
     public DseUserDetails doLoadUserByUsername(String username) {
         return dseUserStore.geDseUser(username);
     }
 
-    @Override
-    public boolean isSupport(UserRegistryType userRegistryType) {
-        return "LOCAL_MEMORY".equals(userRegistryType.getType());
-    }
 }
